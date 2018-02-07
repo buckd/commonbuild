@@ -13,7 +13,7 @@ def call(payloadDir, releaseVersion, stagingPath, lvVersion) {
    def newStagingPath = stagingPath.replaceAll("\\{version\\}", "${lvVersion}")
    echo "Staging path: $newStagingPath"
 
-   bat "(robocopy \"${payloadDir}\" \"${newStagingPath}\" /MIR /NFL /NDL /NJH /NJS /nc /ns /np) ^& exit 0"
+   bat "(robocopy \"${payloadDir}\" \"nipkg\\data\\${newStagingPath}\" /MIR /NFL /NDL /NJH /NJS /nc /ns /np) ^& exit 0"
       
    writeFile file: "nipkg\\control", text: newControlFileText
 
