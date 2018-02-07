@@ -4,7 +4,7 @@ def call(releaseVersion, payloadDir, lvVersion) {
    
    echo controlFields.toMapString()
 
-   def controlFileText = new File("control")
+   def controlFileText = new File("control").text
 
    echo controlFileText
 
