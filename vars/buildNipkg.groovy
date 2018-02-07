@@ -1,4 +1,4 @@
-def call(releaseVersion, payloadDir, stagingPath, lvVersion) {
+def call(payloadDir, releaseVersion, stagingPath, lvVersion) {
    
    def controlFields = readProperties file: "control"
    def packageName = "${controlFields.get('Package')}-${lvVersion}"
