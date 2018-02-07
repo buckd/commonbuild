@@ -2,36 +2,20 @@ package ni.vsbuild.packages
 
 class Nipkg extends AbstractPackage {
 
-   def pkgVersion
-   def maintainer
-   def description
-   def homepage
-   def displayName
-   def eulaDependency
-   def dependencies
+   def releaseVersion
    
    Nipkg(script, packageInfo, payloadDir) {
       super(script, packageInfo, payloadDir)
-      this.pkgVersion = packageInfo.get('version')
-      this.maintainer = packageInfo.get('maintainer')
-      this.description = packageInfo.get('description')
-      this.homepage = packageInfo.get('homepage')
-      this.displayName = packageInfo.get('display_name')
-      this.eulaDependency = packageInfo.get('eula_dependency')
-      this.dependencies = packageInfo.get('dependencies')
+      this.releaseVersion = packageInfo.get('release_version')
    }
 
    void buildPackage() {
       def packageInfo = """
          Building package $name from $payloadDir
-         Package version: $pkgVersion
-         Description: $description
-         Homepage: $homepage
-         Display name: $displayName
-         Eula dependency: $eulaDependency
-         Dependencies: $dependencies
+         Package version: $releaseVersion
          """.stripIndent()
       
+      script.buildNipkg(payloadDir, releaseVersion, lvVersion)
       script.echo packageInfo
    }
 }
