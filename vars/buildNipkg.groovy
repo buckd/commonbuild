@@ -6,7 +6,7 @@ def call(releaseVersion, payloadDir, lvVersion) {
    def controlFileText = readFile "control"
    echo controlFileText
 
-   def newControlFileText = controlFileText.replaceAll("{version}", "${lvVersion}")
+   def newControlFileText = controlFileText.replaceAll("\\{version\\}", "${lvVersion}")
 
    writeFile file: "nipkg\\control", text: newControlFileText
 
