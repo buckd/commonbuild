@@ -9,10 +9,11 @@ class Nipkg extends AbstractPackage {
       this.releaseVersion = packageInfo.get('release_version')
    }
 
-   void buildPackage() {
+   void buildPackage(lvVersion) {
       def packageInfo = """
          Building package $name from $payloadDir
          Package version: $releaseVersion
+         LabVIEW/VeriStand version: $lvVersion
          """.stripIndent()
       
       script.buildNipkg(payloadDir, releaseVersion, lvVersion)
