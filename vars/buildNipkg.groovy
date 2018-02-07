@@ -4,13 +4,12 @@ def call(releaseVersion, payloadDir, lvVersion) {
    
    echo controlFields.toMapString()
 
-   def controlFileText = new File("control").text
+   def controlFileText = readFile "control"
 
    echo controlFileText
 
    def newControlFileText = controlFileText
-   def newControlFile = new File("nipkg\\control")
    
-   newControlFile.text = newControlFileText
+   writeFile file: "nipkg\\control", text: newControlFileText
 
 }
