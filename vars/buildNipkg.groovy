@@ -3,6 +3,7 @@ def call(payloadDir, releaseVersion, stagingPath, lvVersion) {
    def controlFields = readProperties file: "control"
    def basePackageName = "${controlFields.get('Package')}"
    def packageName = basePackageName.replaceAll("\\{version\\}", "${lvVersion}")
+   def nipmAppPath = "C:\\Program Files\\National Instruments\\NI Package Manager\\nipkg.exe"
    
    echo "Building ${packageName} with control attributes:"
    echo controlFields.toMapString()
@@ -19,6 +20,8 @@ def call(payloadDir, releaseVersion, stagingPath, lvVersion) {
 
    writeFile file: "nipkg\\${packageName}\\debian-binary", text: "2.0"      
    writeFile file: "nipkg\\${packageName}\\control\\control", text: newControlFileText
+
+   bat "${nipmAppPath} pack nipkg\\${packageName} built\\nipkg" 
 
 }
 
