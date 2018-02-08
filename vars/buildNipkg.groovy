@@ -13,8 +13,10 @@ def call(payloadDir, releaseVersion, stagingPath, lvVersion) {
    def newStagingPath = stagingPath.replaceAll("\\{version\\}", "${lvVersion}")
    echo "Staging path: $newStagingPath"
 
-   bat "(robocopy \"${payloadDir}\" \"nipkg\\data\\${newStagingPath}\" /MIR /NFL /NDL /NJH /NJS /nc /ns /np) ^& exit 0"
-      
-   writeFile file: "nipkg\\control", text: newControlFileText
+   bat "(robocopy \"${payloadDir}\" \"nipkg\\${packageName}\\data\\${newStagingPath}\" /MIR /NFL /NDL /NJH /NJS /nc /ns /np) ^& exit 0"
+
+   writeFile file: "nipkg\\${packageName}\\debian-binary", text: "2.0"      
+   writeFile file: "nipkg\\${packageName}\\control\\control", text: newControlFileText
 
 }
+
