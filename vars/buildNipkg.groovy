@@ -1,7 +1,9 @@
 def call(payloadDir, releaseVersion, stagingPath, lvVersion) {
    
    def controlFields = readProperties file: "control"
-   def packageName = "${controlFields.get('Package')}-${lvVersion}"
+   def basePackageName = "${controlFields.get('Package')}"
+   def packageName = basePackageName.replaceAll("\\{version\\}", "${lvVersion}"}
+   
    echo "Building ${packageName} with control attributes:"
    echo controlFields.toMapString()
 
