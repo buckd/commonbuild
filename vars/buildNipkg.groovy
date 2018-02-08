@@ -21,7 +21,7 @@ def call(payloadDir, releaseVersion, stagingPath, lvVersion) {
    writeFile file: "nipkg\\${packageName}\\debian-binary", text: "2.0"      
    writeFile file: "nipkg\\${packageName}\\control\\control", text: newControlFileText
 
-   bat "${nipmAppPath} pack nipkg\\${packageName} built\\nipkg" 
+   bat "\"${nipmAppPath}\" pack nipkg\\${packageName} built\\nipkg" 
 
 }
 
