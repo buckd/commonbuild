@@ -31,3 +31,4 @@ class Nipkg extends AbstractPackage {
       script.currentBuild.displayName = "#" + script.nipkg(packageDestination, version, stagingPathMap, lvVersion)
    }
 }
+
