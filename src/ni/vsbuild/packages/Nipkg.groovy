@@ -1,37 +1,33 @@
 package ni.vsbuild.packages
 
+import groovy.json.JsonSlurperClassic
+import groovy.json.JsonOutput
+
 class Nipkg extends AbstractPackage {
 
-   def pkgVersion
-   def maintainer
-   def description
-   def homepage
-   def displayName
-   def eulaDependency
-   def dependencies
-   
+   def devInstallLoc
+   def packageDestination
+   def devXmlPath
+   def version
+
    Nipkg(script, packageInfo, payloadDir) {
       super(script, packageInfo, payloadDir)
-      this.pkgVersion = packageInfo.get('version')
-      this.maintainer = packageInfo.get('maintainer')
-      this.description = packageInfo.get('description')
-      this.homepage = packageInfo.get('homepage')
-      this.displayName = packageInfo.get('display_name')
-      this.eulaDependency = packageInfo.get('eula_dependency')
-      this.dependencies = packageInfo.get('dependencies')
+      this.devInstallLoc = packageInfo.get('install_destination')
+      this.devXmlPath = packageInfo.get('dev_xml_path')
+      this.packageDestination = payloadDir
    }
 
-   void buildPackage() {
+   void buildPackage(lvVersion) {
+
       def packageInfo = """
-         Building package $name from $payloadDir
-         Package version: $pkgVersion
-         Description: $description
-         Homepage: $homepage
-         Display name: $displayName
-         Eula dependency: $eulaDependency
-         Dependencies: $dependencies
+         Building package from $payloadDir
+         Staging path: $devInstallLoc
+         LabVIEW/VeriStand version: $lvVersion
+         Custom Device XML Path: $devXmlPath
          """.stripIndent()
-      
-      script.echo packageInfo
+
+      version = script.getDeviceVersion(devXmlPath, lvVersion)
+      def stagingPathMap = ["${packageDestination}" : devInstallLoc]
+      script.currentBuild.displayName = "#" + script.nipkg(packageDestination, version, stagingPathMap, lvVersion)
    }
 }
