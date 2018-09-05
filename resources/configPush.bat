@@ -1,3 +1,8 @@
+rem This batch file uses the Git CLI to push the updated build configuration files
+rem back to the commonbuild-configuration repository.
+rem This may be running at the same time as another node which uses the same configuration repositry.
+rem Therefore if the Push is unsuccesful then wait and perform a Pull before re-trying.
+
 @echo on
 
 SET commitMessage=%1
