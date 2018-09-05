@@ -12,7 +12,8 @@ def call(componentName, lvVersion) {
    def configurationMap = new JsonSlurperClassic().parseText(configurationJsonFile.toString())
 
    // Check if this component has an entry in the configuration file. If so, increment the build number.
-   if(configurationMap.repositories.containsKey(componentName)) {
+   def containsKey = configurationMap.repositories.containsKey(componentName)
+   if(containsKey) {
      def componentConfiguration = configurationMap.repositories[componentName]
      if(componentConfiguration.containsKey('build_number')) {
        buildNumber = 1 + componentConfiguration['build_number'] as Integer
