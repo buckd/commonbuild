@@ -31,12 +31,12 @@ def call(releaseConfiguration, lvVersion) {
    if(branch != 'master') {
      createReleaseCommand = createReleaseCommand + " --pre-release"
    }
-   
+
    // For now we're just uploading the .nipkg file and build log to the GitHub release.
-   def uploadsMap = ["{releaseName}_version_manifest": 'build_log', "${packageFileName}": packageFilePath]
+   def uploadsMap = ["${releaseName}_version_manifest": 'build_log', "${packageFileName}": packageFilePath]
 
    if(releaseBranches != null && releaseBranches.contains(branch)) {
-      echo "Releasing branch \'${branch}\' at www.github.com\${org}\${repo}."
+      echo "Releasing branch \'${branch}\' at www.github.com/${org}/${repo}."
       bat "${createReleaseCommand}"
       uploadsMap.each { uploadName, uploadSrc ->
         bat "github-release upload --user $org --repo $repo --tag $tag --name \"${uploadName}\" --file \"${uploadSrc}\""
