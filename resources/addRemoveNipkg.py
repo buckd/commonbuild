@@ -22,7 +22,7 @@ if operation == 'install' or operation == 'uninstall':
 
 if operation == 'list-installed':
 	file = open("build_log", "a")
-	file.write("Installed NI Packages:\n\n")
+	file.write("\n\n NI Packages Installed:\n\n")
 	try:
 		proc = subprocess.Popen([nipmAppPath, operation], stderr=subprocess.STDOUT,  stdout=subprocess.PIPE, shell=True)
 		output = proc.stdout.read().decode("utf-8")
