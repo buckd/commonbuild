@@ -21,17 +21,19 @@ class Nipkg extends AbstractPackage {
 
    void buildPackage(lvVersion) {
 
+      version = script.getDeviceVersion(devXmlPath, lvVersion)
+      if(devInstallLoc?.trim()) {
+         nipkgStagingPathMap = ["${packageDestination}" : devInstallLoc]
+      }
+      
       def packageInfo = """
-         Building package from $payloadDir
-         Staging path: $devInstallLoc
+         Staging paths: $nipkgStagingPathMap
+         .nipkg version: $version
          LabVIEW/VeriStand version: $lvVersion
          Custom Device XML Path: $devXmlPath
          """.stripIndent()
-
-      version = script.getDeviceVersion(devXmlPath, lvVersion)
-      if(devInstallLoc?.trim()) {
-         def nipkgStagingPathMap = ["${packageDestination}" : devInstallLoc]
-      }
+      
+      script.echo packageInfo
       script.currentBuild.displayName = "$lvVersion #" + script.nipkg(packageDestination, version, nipkgStagingPathMap, lvVersion)
    }
 }
