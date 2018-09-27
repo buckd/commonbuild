@@ -3,7 +3,9 @@ import sys
 import subprocess
 
 operation = sys.argv[1]
-nipkgPath = sys.argv[2]
+if len(sys.argv) > 1:
+	nipkgPath = sys.argv[2]
+
 currentDir = os.getcwd()
 nipmAppPath = os.environ["ProgramW6432"]+"\\National Instruments\\NI Package Manager\\nipkg.exe"
 nipkgRelPath = currentDir + "\\" + nipkgPath
