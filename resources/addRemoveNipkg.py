@@ -11,7 +11,7 @@ nipkgRelPath = currentDir + "\\" + nipkgPath
 print("Installing .nipkg file:\n", nipkgPath)
 print(f'\'{nipkgRelPath}\'')
 
-elif operation == 'install' or operation == 'uninstall':
+if operation == 'install' or operation == 'uninstall':
 	try:
 		subprocess.run([nipmAppPath, operation, "-y", nipkgRelPath], stderr=subprocess.STDOUT, shell=True, check=True)
 
