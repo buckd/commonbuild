@@ -21,7 +21,8 @@ if operation == 'install' or operation == 'uninstall':
 		sys.exit(err.args[0])
 
 if operation == 'list-installed':
-	file = open("nipm_version_manifest", "a")
+	file = open("build_log", "a")
+	file.write("Installed NI Packages:\n\n")
 	try:
 		proc = subprocess.Popen([nipmAppPath, operation], stderr=subprocess.STDOUT,  stdout=subprocess.PIPE, shell=True)
 		output = proc.stdout.read().decode("utf-8")
