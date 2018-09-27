@@ -11,9 +11,21 @@ nipkgRelPath = currentDir + "\\" + nipkgPath
 print("Installing .nipkg file:\n", nipkgPath)
 print(f'\'{nipkgRelPath}\'')
 
-try:
-	subprocess.run([nipmAppPath, operation, "-y", nipkgRelPath], stderr=subprocess.STDOUT, shell=True, check=True)
+elif operation == 'install' or operation == 'uninstall':
+	try:
+		subprocess.run([nipmAppPath, operation, "-y", nipkgRelPath], stderr=subprocess.STDOUT, shell=True, check=True)
 
-except subprocess.CalledProcessError as err:
-	print(err.args)
-	sys.exit(err.args[0])
+	except subprocess.CalledProcessError as err:
+		print(err.args)
+		sys.exit(err.args[0])
+
+if operation == 'list-installed':
+	file = open("nipm_version_manifest", "a")
+	try:
+		subprocess.run([nipmAppPath, operation], stderr=subprocess.STDOUT,  stdout=subprocess.PIPE, shell=True, check=True)
+		output = proc.stdout.read()
+		file.write(output)
+
+	except subprocess.CalledProcessError as err:
+		print(err.args)
+		sys.exit(err.args[0])
